@@ -1,0 +1,144 @@
+:root {
+
+    --text-color             : rgba(255, 255, 255, 0.87);
+
+    font-family              : Inter, Avenir, Helvetica, Arial, sans-serif;
+    font-size                : 16px;
+    line-height              : 24px;
+    font-weight              : 400;
+
+    color                    : var(--text-color);
+    background-color         : #242424;
+
+    font-synthesis           : none;
+    text-rendering           : optimizeLegibility;
+    -webkit-font-smoothing   : antialiased;
+    -moz-osx-font-smoothing  : grayscale;
+    -webkit-text-size-adjust : 100%;
+}
+
+* {
+    box-sizing : border-box;
+}
+
+body {
+    display         : flex;
+    justify-content : center;
+    align-items     : center;
+    height          : 100vh;
+}
+
+
+#app {
+
+}
+
+.fields {
+    display   : flex;
+    flex-wrap : wrap;
+}
+
+.field {
+    width   : 4rem;
+    height  : 4rem;
+    padding : 3px;
+    cursor  : pointer;
+}
+
+.field_inner {
+    position        : relative;
+    width           : 100%;
+    height          : 100%;
+    display         : flex;
+    justify-content : center;
+    align-items     : center;
+}
+
+.field_bg {
+    width    : 100%;
+    height   : 100%;
+    position : absolute;
+    opacity  : 0.6;
+    z-index  : 0;
+}
+
+.field:hover .field_bg {
+    opacity : 0.8;
+}
+
+.field_id {
+    position    : absolute;
+    left        : 4px;
+    top         : 4px;
+    color       : var(--text-color);
+    z-index     : 0;
+    font-size   : 13px;
+    line-height : 13px;
+    opacity     : 0.25;
+}
+
+.field_id[data-show="false"] {
+    display : none;
+}
+
+.field_mine {
+    display  : none;
+    position : relative;
+    z-index  : 1;
+}
+
+.field_content {
+    display  : none;
+    position : relative;
+    z-index  : 1;
+}
+
+
+.field[data-status="UNKNOWN"] .field_bg {
+    background-color : #646464;
+}
+
+
+.field[data-status="REVEALED"] {
+    cursor : default;
+}
+.field[data-status="REVEALED"] .field_bg,
+.field[data-status="REVEALED"] .field_bg:hover {
+    background-color : #333333;
+    opacity          : 0.9;
+}
+
+
+.field[data-status="MINE"] {
+    cursor : default;
+}
+
+.field[data-status="MINE"] .field_bg,
+.field[data-status="MINE"] .field_bg:hover {
+    background-color : #931212;
+    opacity          : 0.9;
+}
+
+
+.field[data-status="MARKED"] .field_bg,
+.field[data-status="MARKED"] .field_bg:hover {
+    background-color : #AF8D0A;
+    opacity          : 0.9;
+}
+
+.field[data-status="REVEALED"] {
+    cursor : default;
+}
+
+.field[data-status="REVEALED"] .field_mine {
+    display : block;
+}
+
+.field[data-status="REVEALED"] .field_content {
+    display : block;
+}
+
+
+/*.field[data-has-mine] .field_bg {*/
+/*    background-color : red;*/
+/*}*/
