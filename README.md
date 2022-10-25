@@ -1,1 +1,3 @@
-# minesweeper-example
+# minesweeper-tdd-example
+
+- Vanilla TS example

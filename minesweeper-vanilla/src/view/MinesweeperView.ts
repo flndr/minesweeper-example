@@ -73,13 +73,13 @@ export class MinesweeperView {
         `
         } ).join( '' );
         
-        let statusText = this.statusTextStart
+        let statusText = '<h1>Minesweeper</h1>' + this.statusTextStart
         
         if ( gameWon ) {
-            statusText = this.statusTextGameWon
+            statusText = '<h1>YOU WON</h1>' + this.statusTextGameWon
         }
         if ( gameOver ) {
-            statusText = this.statusTextGameOver
+            statusText = '<h1>GAME OVER</h1>' + this.statusTextGameOver
         }
         
         this.rootElement.innerHTML = `
