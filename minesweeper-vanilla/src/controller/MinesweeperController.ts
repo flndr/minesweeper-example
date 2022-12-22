@@ -6,13 +6,13 @@ import { Settings }    from '../models/Settings';
 
 export class MinesweeperController {
     
-    private settings : Settings = {
+    _settings : Settings = {
         size       : 10,
         mines      : 10,
         mineFields : []
     }
     
-    private board : Board = {
+    _board : Board = {
         fields     : [],
         minesFound : 0,
         minesLeft  : 0,
@@ -21,16 +21,16 @@ export class MinesweeperController {
     };
     
     getBoard() : Board {
-        return this.board;
+        return this._board;
     }
     
     getSettings() : Settings {
-        return this.settings;
+        return this._settings;
     }
     
     setSettings( partialSettings : Partial<Settings> ) {
-        this.settings = {
-            ...this.settings,
+        this._settings = {
+            ...this._settings,
             ...partialSettings
         };
     }
@@ -39,10 +39,10 @@ export class MinesweeperController {
         let fields = this.generateFields();
         fields     = this.calcAdjacentMines( fields );
         
-        this.board = {
+        this._board = {
             fields,
             minesFound : 0,
-            minesLeft  : this.settings.mines,
+            minesLeft  : this._settings.mines,
             gameOver   : false,
             gameWon    : false
         };
@@ -71,13 +71,13 @@ export class MinesweeperController {
         let id = 1;
         
         const mines = MinesweeperController.generateRandomSetOfNumbers(
-            this.settings.mines,
-            this.settings.size * this.settings.size,
-            new Set<number>( this.settings.mineFields )
+            this._settings.mines,
+            this._settings.size * this._settings.size,
+            new Set<number>( this._settings.mineFields )
         );
         
-        for ( let x = 0; x < this.settings.size; x++ ) {
-            for ( let y = 0; y < this.settings.size; y++ ) {
+        for ( let x = 0; x < this._settings.size; x++ ) {
+            for ( let y = 0; y < this._settings.size; y++ ) {
                 fields.push( {
                     ...fieldDefaults,
                     hasMine : mines.has( id ),
@@ -152,13 +152,13 @@ export class MinesweeperController {
     }
     
     public revealField( id : FieldId ) : void {
-        if ( !this.board.gameOver || !this.board.gameWon ) {
+        if ( !this._board.gameOver || !this._board.gameWon ) {
             this.revealFieldsRecursively( id );
         }
     }
     
     public markField( id : FieldId ) : void {
-        if ( this.board.gameOver || this.board.gameWon ) {
+        if ( this._board.gameOver || this._board.gameWon ) {
             return
         }
         const field = this.getFieldById( id );
@@ -190,7 +190,7 @@ export class MinesweeperController {
                 ...field,
                 status : FieldStatus.MINE
             } );
-            this.board.gameOver = true;
+            this._board.gameOver = true;
             return;
         }
         
@@ -200,19 +200,19 @@ export class MinesweeperController {
         } );
         
         if ( field.adjacentMines === 0 ) {
-            this.getAdjacentFields( this.board.fields, field ).filter( f => !f.hasMine )
+            this.getAdjacentFields( this._board.fields, field ).filter( f => !f.hasMine )
                 .forEach( f => this.revealFieldsRecursively( f.id ) )
         }
     }
     
     private checkWinCondition() {
-        const markedFields = this.board.fields.filter( f => f.hasMine && f.status === FieldStatus.MARKED ).length;
-        const mineFields   = this.board.fields.filter( f => f.hasMine ).length;
-        this.board.gameWon = markedFields === mineFields;
+        const markedFields  = this._board.fields.filter( f => f.hasMine && f.status === FieldStatus.MARKED ).length;
+        const mineFields    = this._board.fields.filter( f => f.hasMine ).length;
+        this._board.gameWon = markedFields === mineFields;
     }
     
     private getFieldById( id : FieldId ) : Field {
-        const found = this.board.fields.filter( f => f.id === id );
+        const found = this._board.fields.filter( f => f.id === id );
         if ( found.length === 1 ) {
             return JSON.parse( JSON.stringify( found[ 0 ] ) ); // safety parse, so we dont get a ref
         }
@@ -222,12 +222,21 @@ export class MinesweeperController {
     private updateField( field : Field ) : void {
         const found = this.getFieldById( field.id );
         if ( found ) {
-            this.board.fields = this.board.fields.filter( f => f.id !== field.id );
-            this.board.fields.push( field );
-            this.board.fields.sort( ( a : Field, b : Field ) => a.id - b.id );
+            this._board.fields = this._board.fields.filter( f => f.id !== field.id );
+            this._board.fields.push( field );
+            this._board.fields.sort( ( a : Field, b : Field ) => a.id - b.id );
         } else {
             throw new Error( 'Could not update field with id=' + field.id );
         }
         
     }
+    
+    get board() : Board {
+        return this._board;
+    }
+    
+    get settings() : Settings {
+        return this._settings;
+    }
+    
 }
