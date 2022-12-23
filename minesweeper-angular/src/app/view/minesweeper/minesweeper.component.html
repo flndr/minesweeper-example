@@ -1,0 +1,26 @@
+<div style="text-align: center">
+    <h1>{{ textHeadline }}</h1>
+    {{textSubline}}
+</div>
+<div class="fields" [style.width]="( settings.size * 4 ) + 'rem'">
+    <div class="field"
+         *ngFor="let field of board.fields"
+         (click)="handleRevealField($event, field)"
+         (contextmenu)="handleMarkField($event, field)"
+         [attr.data-field-id]="field.id"
+         [attr.data-status]="field.status"
+         [attr.data-has-mine]="field.hasMine ? true : null">
+        <div class="field_inner">
+            <div class="field_content">
+                {{ field.adjacentMines > 0 ? field.adjacentMines : '' }}
+            </div>
+            <div class="field_bg"></div>
+            <div class="field_id" *ngIf="showFieldIds">
+                {{ field.id }}
+            </div>
+        </div>
+    </div>
+</div>
+<div style="text-align: center">
+    <a (click)="handleToggleFieldIds($event)">toggle field ids</a>
+</div>
