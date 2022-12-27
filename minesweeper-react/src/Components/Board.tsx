@@ -2,6 +2,7 @@ import styled       from '@emotion/styled';
 import { observer } from 'mobx-react';
 import { useState } from 'react';
 
+import { TestElement }   from '../../../e2e/TestElement';
 import { useController } from '../Controller';
 import Field             from './Field';
 import StatusText        from './StatusText';
@@ -36,7 +37,8 @@ function Board() {
             ) }
         </Fields>
         <Actions>
-            <Action onClick={ () => setShowFieldIds( !showFieldIds ) }>
+            <Action onClick={ () => setShowFieldIds( !showFieldIds ) }
+                    data-test-element={ TestElement.BTN_TOGGLE_FIELD_ID }>
                 toggle field ids
             </Action>
         </Actions>

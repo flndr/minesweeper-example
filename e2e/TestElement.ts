@@ -1,0 +1,10 @@
+export const TestElement = {
+    HEADLINE             : 'HEADLINE',
+    SUBLINE_GAME_NEW     : 'SUBLINE_GAME_NEW',
+    SUBLINE_GAME_LOST    : 'SUBLINE_GAME_LOST',
+    SUBLINE_GAME_WON     : 'SUBLINE_GAME_WON',
+    FIELD                : 'FIELD',
+    FIELD_ID             : 'FIELD_ID',
+    FIELD_ADJACENT_MINES : 'FIELD_ADJACENT_MINES',
+    BTN_TOGGLE_FIELD_ID  : 'BTN_TOGGLE_FIELD_ID',
+}

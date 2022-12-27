@@ -1,21 +1,24 @@
 {
-  "name": "e2e",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "npx playwright test && npx playwright show-report",
-    "debug": "npx playwright test --debug && npx playwright show-report",
-    "projects": "concurrently \"npm:project:*\" ",
-    "project:vanilla": "cd ../minesweeper-vanilla/ && npm run dev",
-    "project:react": "cd ../minesweeper-react/ && npm run dev",
-    "project:angular": "cd ../minesweeper-angular/ && npm run dev"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@playwright/test": "^1.29.1",
-    "concurrently": "^7.6.0"
-  }
+    "name"            : "e2e",
+    "version"         : "1.0.0",
+    "description"     : "",
+    "main"            : "index.js",
+    "scripts"         : {
+        "test-vanilla-chromium" : "npx playwright test --project=vanilla-chromium",
+        "test-all"              : "npx playwright test",
+        "report"                : "npx playwright show-report",
+        "test-all-and-report"   : "npm run test-all && npm run report",
+        "debug"                 : "npx playwright test --debug",
+        "projects"              : "concurrently \"npm:project:*\" ",
+        "project:vanilla"       : "cd ../minesweeper-vanilla/ && npm run dev",
+        "project:react"         : "cd ../minesweeper-react/ && npm run dev",
+        "project:angular"       : "cd ../minesweeper-angular/ && npm run dev"
+    },
+    "keywords"        : [ ],
+    "author"          : "",
+    "license"         : "ISC",
+    "devDependencies" : {
+        "@playwright/test" : "^1.29.1",
+        "concurrently"     : "^7.6.0"
+    }
 }

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ControllerService } from '../../services/controller.service';
 
-import { Board }    from '../../../../../minesweeper-vanilla/src/models/Board';
-import { Settings } from '../../../../../minesweeper-vanilla/src/models/Settings';
-import { Field }    from '../../../../../minesweeper-vanilla/src/models/Field';
+import { Board }      from '../../../../../minesweeper-vanilla/src/models/Board';
+import { Settings }   from '../../../../../minesweeper-vanilla/src/models/Settings';
+import { Field }       from '../../../../../minesweeper-vanilla/src/models/Field';
+import { TestElement } from '../../../../../e2e/TestElement';
 
 @Component( {
     selector    : 'app-minesweeper',
@@ -11,6 +12,8 @@ import { Field }    from '../../../../../minesweeper-vanilla/src/models/Field';
     styleUrls   : [ './minesweeper.component.scss' ]
 } )
 export class MinesweeperComponent implements OnInit {
+    
+    readonly TestElement = TestElement;
     
     public showFieldIds = false;
     

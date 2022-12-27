@@ -15,11 +15,9 @@ export class MinesweeperController {
     }
     
     _board : Board = {
-        fields     : [],
-        minesFound : 0,
-        minesLeft  : 0,
-        gameOver   : false,
-        gameWon    : false
+        fields   : [],
+        gameOver : false,
+        gameWon  : false
     };
     
     getBoard() : Board {
@@ -43,10 +41,8 @@ export class MinesweeperController {
         
         this._board = {
             fields,
-            minesFound : 0,
-            minesLeft  : this._settings.mines,
-            gameOver   : false,
-            gameWon    : false
+            gameOver : false,
+            gameWon  : false
         };
     }
     

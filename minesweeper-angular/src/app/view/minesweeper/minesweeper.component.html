@@ -1,26 +1,34 @@
 <div style="text-align: center">
-    <h1>{{ textHeadline }}</h1>
-    {{textSubline}}
+    <h1 [attr.data-test-element]="TestElement.HEADLINE">{{ textHeadline }}</h1>
+    <p>{{ textSubline }}</p>
 </div>
 <div class="fields" [style.width]="( settings.size * 4 ) + 'rem'">
     <div class="field"
          *ngFor="let field of board.fields"
          (click)="handleRevealField($event, field)"
          (contextmenu)="handleMarkField($event, field)"
+         [attr.data-test-element]="TestElement.FIELD"
+         [attr.data-test-field-id]="field.id"
          [attr.data-field-id]="field.id"
          [attr.data-status]="field.status"
          [attr.data-has-mine]="field.hasMine ? true : null">
         <div class="field_inner">
-            <div class="field_content">
+            <div class="field_content"
+                 [attr.data-test-element]="TestElement.FIELD_ADJACENT_MINES">
                 {{ field.adjacentMines > 0 ? field.adjacentMines : '' }}
             </div>
             <div class="field_bg"></div>
-            <div class="field_id" *ngIf="showFieldIds">
+            <div class="field_id"
+                 *ngIf="showFieldIds"
+                 [attr.data-test-element]="TestElement.FIELD_ID">
                 {{ field.id }}
             </div>
         </div>
     </div>
 </div>
 <div style="text-align: center">
-    <a (click)="handleToggleFieldIds($event)">toggle field ids</a>
+    <a (click)="handleToggleFieldIds($event)"
+       [attr.data-test-element]="TestElement.BTN_TOGGLE_FIELD_ID">
+        toggle field ids
+    </a>
 </div>

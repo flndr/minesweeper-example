@@ -1,6 +1,8 @@
 import { MinesweeperController } from '../controller/MinesweeperController';
 import { Field }                 from '../models/Field';
 
+import { TestElement } from '../../../e2e/TestElement';
+
 export class MinesweeperView {
     
     private showFieldIds = false;
@@ -52,11 +54,13 @@ export class MinesweeperView {
         const htmlFields = fields.map( ( field : Field ) => {
             return `
             <div class="field"
+                 data-test-field-id="${ field.id }"
+                 data-test-element="${ TestElement.FIELD }"
                  data-field
                  data-field-id="${ field.id }"
                  data-status="${ field.status }" ${ field.hasMine ? 'data-has-mine' : '' }>
                 <div class="field_inner">
-                    <div class="field_content">
+                    <div class="field_content" data-test-element="${ TestElement.FIELD_ADJACENT_MINES }">
                         ${ field.adjacentMines > 0
                            ? field.adjacentMines
                            : '' }
@@ -64,6 +68,7 @@ export class MinesweeperView {
                     <div class="field_bg"></div>
                     <div class="field_id"
                          data-js-field-id
+                         data-test-element="${ TestElement.FIELD_ID }"
                          data-show="${ this.showFieldIds }">
                         ${ field.id }
                     </div>
@@ -73,24 +78,31 @@ export class MinesweeperView {
         `
         } ).join( '' );
         
-        let statusText = '<h1>Vanilla Minesweeper</h1>' + this.statusTextStart
+        let textHeadline = 'Vanilla Minesweeper';
+        let textSubline  = this.statusTextStart;
         
         if ( gameWon ) {
-            statusText = '<h1>YOU WON</h1>' + this.statusTextGameWon
+            textHeadline = 'YOU WON';
+            textSubline  = this.statusTextGameWon;
         }
         if ( gameOver ) {
-            statusText = '<h1>GAME OVER</h1>' + this.statusTextGameOver
+            textHeadline = 'GAME OVER';
+            textSubline  = this.statusTextGameOver;
         }
         
         this.rootElement.innerHTML = `
             <div style="text-align: center">
-                ${ statusText }
+                <h1 data-test-element="${ TestElement.HEADLINE }">${ textHeadline }</h1>
+                <p>${ textSubline }</p>
             </div>
             <div class="fields" style="width: ${ ( size * 4 ) + 'rem' }">
                 ${ htmlFields }
             </div>
             <div style="text-align: center">
-                <a data-js-toggle-field-id>toggle field ids</a>
+                <a data-js-toggle-field-id
+                   data-test-element="${ TestElement.BTN_TOGGLE_FIELD_ID }">
+                    toggle field ids
+                </a>
             </div>
         `;
     }

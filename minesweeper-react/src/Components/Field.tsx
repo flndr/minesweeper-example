@@ -2,6 +2,7 @@ import React        from 'react';
 import { observer } from 'mobx-react';
 import styled       from '@emotion/styled';
 
+import { TestElement }         from '../../../e2e/TestElement';
 import { Field as FieldModel } from '../../../minesweeper-vanilla/src/models/Field';
 import { FieldStatus }         from '../../../minesweeper-vanilla/src/models/FieldStatus';
 import { useController }       from '../Controller';
@@ -115,12 +116,20 @@ function Field( props : Props ) {
     };
     
     return <Container status={ status }
+                      data-test-element={ TestElement.FIELD }
+                      data-test-field-id={ id }
                       onContextMenu={ handleContextMenu }
                       onClick={ handleClick }>
         <Inner>
-            { showAdjacent && <Adjacent>{ adjacentMines }</Adjacent> }
+            { showAdjacent &&
+              <Adjacent data-test-element={ TestElement.FIELD_ADJACENT_MINES }>
+                  { adjacentMines }
+              </Adjacent> }
             <Background { ...{ status, showGreen } }/>
-            { showId && <FieldId>{ id }</FieldId> }
+            { showId &&
+              <FieldId data-test-element={ TestElement.FIELD_ID }>
+                  { id }
+              </FieldId> }
         </Inner>
     </Container>;
 }

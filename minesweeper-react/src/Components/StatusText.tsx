@@ -1,6 +1,8 @@
 import styled       from '@emotion/styled';
 import { observer } from 'mobx-react';
 
+import { TestElement } from '../../../e2e/TestElement';
+
 import { getRandomItem } from '../Controller';
 import { useController } from '../Controller';
 
@@ -50,8 +52,8 @@ function StatusText() {
     }
     
     return <Container>
-        <h1>{ headline }</h1>
-        { subline }
+        <h1 data-test-element={ TestElement.HEADLINE }>{ headline }</h1>
+        <p>{ subline }</p>
     </Container>;
     
 }
