@@ -1,3 +1,5 @@
+import queryString from 'query-string';
+
 import { Board }       from '../models/Board';
 import { Field }       from '../models/Field';
 import { FieldId }     from '../models/FieldId';
@@ -237,6 +239,21 @@ export class MinesweeperController {
     
     get settings() : Settings {
         return this._settings;
+    }
+    
+    static parseSettingsFromQueryString() : Settings | null {
+        const parsed = queryString.parse( location.search );
+        
+        if ( Object.keys( parsed ).length === 0 ) {
+            return null;
+        }
+        
+        // for the sake of simplicity no validation of parsed settings here
+        return {
+            size       : parseInt( parsed.size as unknown as string ),
+            mines      : parseInt( parsed.mines as unknown as string ),
+            mineFields : ( parsed.mineFields as unknown as Array<string> ).map( f => parseInt( f ) )
+        };
     }
     
 }

@@ -5,7 +5,10 @@ import './style.css';
 const rootElement = document.querySelector<HTMLDivElement>( '[data-board]' )!;
 
 const controller = new MinesweeperController();
-controller.setSettings( { size : 10, mines : 4, mineFields : [] } );
+controller.setSettings(
+    MinesweeperController.parseSettingsFromQueryString() ||
+    { size : 10, mines : 4 }
+);
 controller.initNewGame();
 
 const view = new MinesweeperView( rootElement, controller );

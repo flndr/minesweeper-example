@@ -23,7 +23,10 @@ export class MinesweeperComponent implements OnInit {
     ) { }
     
     ngOnInit() : void {
-        this.controller.setSettings( { size : 10, mines : 4, mineFields : [] } );
+        this.controller.setSettings(
+            ControllerService.parseSettingsFromQueryString() ||
+            { size : 10, mines : 4 }
+        );
         this.controller.initNewGame();
         
         this.statusTextStart = this.getRandomItem( [
