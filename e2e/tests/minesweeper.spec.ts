@@ -1,24 +1,21 @@
-import { expect, test } from '@playwright/test';
+import { expect }       from '@playwright/test';
+import { test as base } from '@playwright/test';
 
-const projects : Array<{
-    name : string;
-    baseUrl : string;
-}> = [
-    { name : 'Vanilla', baseUrl : 'http://localhost:3001/' },
-    { name : 'React', baseUrl : 'http://localhost:3002/' },
-    { name : 'Angular', baseUrl : 'http://localhost:3003/' },
-];
+import { TestOptions } from '../playwright.config';
 
-for ( const project of projects ) {
-    test.describe( project.name, () => {
-        
-        test.beforeEach( async ( { page } ) => {
-            await page.goto( project.baseUrl );
-        } );
-        
-        test( `Title must contain "Minesweeper"`, async ( { page } ) => {
-            await expect( page ).toHaveTitle( /Minesweeper/ );
-        } );
-    } )
+export const test = base.extend<TestOptions>( {
+    projectBaseUrl : [ 'http://localhost:1234/', { option : true } ],
+    projectTitle   : [ 'Minesweeper Something', { option : true } ],
+} );
+
+test.describe( 'Minesweeper', () => {
     
-}
+    test.beforeEach( async ( { page, projectBaseUrl } ) => {
+        await page.goto( projectBaseUrl );
+    } );
+    
+    test( 'Document Title', async ( { page, projectTitle } ) => {
+        await expect( page ).toHaveTitle( projectTitle + ' Minesweeper' );
+    } );
+} )
+
