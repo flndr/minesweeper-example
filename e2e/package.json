@@ -1,0 +1,21 @@
+{
+  "name": "e2e",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test && npx playwright show-report",
+    "debug": "npx playwright test --debug && npx playwright show-report",
+    "projects": "concurrently \"npm:project:*\" ",
+    "project:vanilla": "cd ../minesweeper-vanilla/ && npm run dev",
+    "project:react": "cd ../minesweeper-react/ && npm run dev",
+    "project:angular": "cd ../minesweeper-angular/ && npm run dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.29.1",
+    "concurrently": "^7.6.0"
+  }
+}
